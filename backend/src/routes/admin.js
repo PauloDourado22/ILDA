@@ -14,18 +14,23 @@ adminRouter.use(requireAuth);
 // --- Site settings (hero text, about text, contact info) -----------------
 
 adminRouter.put('/site', (req, res) => {
-  const { heroTitle, heroSubtitle, aboutText, address, phone, email } = req.body ?? {};
+  const { cafeName, heroTitle, heroSubtitle, aboutText, address, phone, email } = req.body ?? {};
 
-  if (!isNonEmptyString(heroTitle, 200) || !isNonEmptyString(heroSubtitle, 300) || !isNonEmptyString(aboutText, 2000)) {
-    return res.status(400).json({ error: 'heroTitle, heroSubtitle, and aboutText are required.' });
+  if (
+    !isNonEmptyString(cafeName, 100) ||
+    !isNonEmptyString(heroTitle, 200) ||
+    !isNonEmptyString(heroSubtitle, 300) ||
+    !isNonEmptyString(aboutText, 2000)
+  ) {
+    return res.status(400).json({ error: 'cafeName, heroTitle, heroSubtitle, and aboutText are required.' });
   }
 
   db.prepare(
     `UPDATE site_settings
-     SET hero_title = ?, hero_subtitle = ?, about_text = ?, address = ?, phone = ?, email = ?,
+     SET cafe_name = ?, hero_title = ?, hero_subtitle = ?, about_text = ?, address = ?, phone = ?, email = ?,
          updated_at = datetime('now')
      WHERE id = 1`
-  ).run(heroTitle, heroSubtitle, aboutText, address ?? null, phone ?? null, email ?? null);
+  ).run(cafeName, heroTitle, heroSubtitle, aboutText, address ?? null, phone ?? null, email ?? null);
 
   res.json(db.prepare('SELECT * FROM site_settings WHERE id = 1').get());
 });

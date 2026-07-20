@@ -32,6 +32,7 @@ export default function AdminPage() {
       const data = await getContentFresh();
       setContent(data);
       setSiteForm({
+        cafeName: data.settings.cafe_name,
         heroTitle: data.settings.hero_title,
         heroSubtitle: data.settings.hero_subtitle,
         aboutText: data.settings.about_text,
@@ -149,7 +150,11 @@ export default function AdminPage() {
         <h2>Homepage content</h2>
         <form onSubmit={handleSaveSite}>
           <div className="form-group">
-            <label>Hero title</label>
+            <label>Café name</label>
+            <input value={siteForm.cafeName} onChange={(e) => setSiteForm((f) => ({ ...f, cafeName: e.target.value }))} />
+          </div>
+          <div className="form-group">
+            <label>Hero title <span style={{ fontWeight: 400, color: '#a09484' }}>(the big marketing headline, not the café name)</span></label>
             <input value={siteForm.heroTitle} onChange={(e) => setSiteForm((f) => ({ ...f, heroTitle: e.target.value }))} />
           </div>
           <div className="form-group">

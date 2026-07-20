@@ -39,10 +39,25 @@ within a minute — without a build, a deploy, or a developer in the loop.
   binary data from a browser, so it gets the most scrutiny.
 - **A single-row `site_settings` table**, not a generic key-value store —
   there's exactly one café with one set of homepage copy, so the schema says
-  that directly instead of modeling flexibility nobody needs yet.
+  that directly instead of modeling flexibility nobody needs yet. It also
+  keeps `cafe_name` (nav wordmark, footer, browser tab) separate from
+  `hero_title` (the big marketing headline) — two pieces of copy that read
+  similarly but change independently.
 - **`hours` always has exactly 7 rows** (seeded once, always updated via
   `UPDATE`), so the admin form never has to handle "the Tuesday row doesn't
   exist yet."
+- **Schema changes on a database that already has data in it.**
+  `backend/src/db/index.js` runs a guarded `ALTER TABLE` for any column added
+  after the initial schema (checked via `PRAGMA table_info`, so it's a no-op
+  on a fresh install and runs at most once on an existing one) and backfills
+  the new column instead of leaving it blank. `CREATE TABLE IF NOT EXISTS`
+  alone only shapes a brand-new database — this is what makes it safe to add
+  a field like `cafe_name` without wiping anyone's existing content.
+- **"Open now" is computed server-side, not hardcoded.**
+  `frontend/app/lib/time.js` derives the open/closed status shown on the
+  homepage from the `hours` rows and the server's clock at render time —
+  accurate to within the 60s ISR window, with no client-side clock logic to
+  cause a hydration mismatch.
 
 ## Running it locally
 
@@ -75,6 +90,10 @@ Admin panel: http://localhost:3200/admin/login — seeded login
 
 ## What a v2 would add
 
+- Hero/interior photo uploads. The homepage currently renders honest
+  placeholders (`frontend/app/components/PhotoSlot.js`) instead of hardcoded
+  stock photography — the natural next step is a `site_images` table plus an
+  admin upload flow, reusing the existing `upload.js` pattern.
 - Move uploaded images to object storage (S3/R2) instead of local disk —
   the current setup works for a single-instance demo but won't survive a
   redeploy on most hosting providers.
@@ -82,4 +101,3 @@ Admin panel: http://localhost:3200/admin/login — seeded login
   in the schema, just no UI for changing it yet).
 - Image resizing/optimization on upload (e.g. via sharp) instead of serving
   whatever size the owner uploads.
-# SF-Cafe

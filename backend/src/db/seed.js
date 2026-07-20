@@ -16,10 +16,11 @@ if (!existingOwner) {
 const settingsExist = db.prepare('SELECT id FROM site_settings WHERE id = 1').get();
 if (!settingsExist) {
   db.prepare(
-    `INSERT INTO site_settings (id, hero_title, hero_subtitle, about_text, address, phone, email)
-     VALUES (1, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO site_settings (id, cafe_name, hero_title, hero_subtitle, about_text, address, phone, email)
+     VALUES (1, ?, ?, ?, ?, ?, ?, ?)`
   ).run(
-    'Café Nascer do Sol',
+    'ILDA',
+    'Coffee, made like it matters.',
     'Slow coffee and fresh pastries in the heart of Leiria.',
     'We roast locally, bake every morning, and keep a table open for you. ' +
       'Family-run since day one — come sit a while.',

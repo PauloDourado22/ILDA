@@ -11,6 +11,11 @@ CREATE TABLE IF NOT EXISTS users (
 -- fixed-shape row is easier to reason about and query than a KV blob.
 CREATE TABLE IF NOT EXISTS site_settings (
   id INTEGER PRIMARY KEY CHECK (id = 1),
+  -- The café's actual name (nav wordmark, footer, browser tab) — kept
+  -- separate from hero_title below on purpose: they're different pieces of
+  -- copy that change independently. hero_title is the big marketing
+  -- headline ("Coffee, made like it matters."), not the business name.
+  cafe_name TEXT NOT NULL DEFAULT '',
   hero_title TEXT NOT NULL,
   hero_subtitle TEXT NOT NULL,
   about_text TEXT NOT NULL,
