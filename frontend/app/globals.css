@@ -281,7 +281,10 @@ em {
   padding: 16px;
   font-size: 12.5px;
   letter-spacing: 0.02em;
+  position: relative; /* anchors the next/image `fill` layout below */
+  overflow: hidden; /* clips the image to the border-radius */
 }
+.photo-slot--image { padding: 0; background: var(--border); }
 .photo-slot--light {
   background: repeating-linear-gradient(135deg, #f1ede3, #f1ede3 10px, #e8e2d3 10px, #e8e2d3 20px);
   color: var(--text-muted);

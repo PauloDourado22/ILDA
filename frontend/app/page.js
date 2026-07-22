@@ -69,8 +69,8 @@ export default async function Home() {
             bleeding into the seam. See `.section-inner--tight`'s padding for
             the matching compensation on the other side of that seam. */}
         <div className="hero-photos">
-          <PhotoSlot tone="dark" label="Wide interior shot — morning light" />
-          <PhotoSlot tone="dark" label="Detail — cup on the counter" />
+          <PhotoSlot tone="dark" src="/photos/photo1.jpg" label="Wide interior shot — morning light" />
+          <PhotoSlot tone="dark" src="/photos/photo2.jpg" label="Detail — cup on the counter" />
         </div>
       </header>
 
@@ -113,8 +113,8 @@ export default async function Home() {
               <p className="space-text">{settings.about_text}</p>
             </div>
             <div className="space-photos">
-              <PhotoSlot tone="light" label="Interior — morning light" />
-              <PhotoSlot tone="light" label="Detail shot" />
+              <PhotoSlot tone="light" src="/photos/photo3.jpg" label="Interior — morning light" />
+              <PhotoSlot tone="light" src="/photos/photo4.jpg" label="Detail shot" />
             </div>
           </div>
         </div>
