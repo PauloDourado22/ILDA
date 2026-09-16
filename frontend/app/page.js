@@ -149,7 +149,7 @@ export default async function Home() {
               )}
             </div>
 
-            <PhotoSlot tone="light" label="Map or storefront photo" />
+            <PhotoSlot tone="light" src="/photos/photo5.jpg" label="Map — Rua Central 12, Leiria" />
           </div>
         </div>
       </section>
