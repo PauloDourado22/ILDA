@@ -24,6 +24,12 @@ const instrumentSerif = Instrument_Serif({
 export const metadata = {
   title: 'ILDA',
   description: 'Slow coffee and fresh pastries in the heart of Leiria.',
+  openGraph: {
+    title: 'ILDA — Coffee, made like it matters.',
+    description: 'Slow coffee and fresh pastries in the heart of Leiria.',
+    images: ['/photos/og-image.png'],
+  },
+  twitter: { card: 'summary_large_image', images: ['/photos/og-image.png'] },
 };
 
 export default function RootLayout({ children }) {
